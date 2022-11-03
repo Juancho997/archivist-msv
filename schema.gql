@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type EventData {
+  id: Int!
+  userId: String!
+  userEmail: String!
+}
+
+type Archive {
+  id: Int!
+  eventId: String!
+  eventType: String!
+  eventDate: String!
+  eventData: EventData!
+}
+
+type Query {
+  getAllArchives: [Archive!]!
+  getArchive(id: String!): Archive!
+  getArchiveByEventId(eventId: String!): Archive!
+  getArchivesByEventType(eventType: String!): [Archive!]!
+}
+
+type Mutation {
+  createArchive(createArchiveInput: CreateArchiveInput!): Archive!
+  createEventData(createEventDataInput: CreateEventDataInput!): EventData!
+}
+
+input CreateArchiveInput {
+  eventId: String!
+  eventType: String!
+  eventDate: String!
+  eventData: CreateEventDataInput!
+}
+
+input CreateEventDataInput {
+  userId: String!
+  userEmail: String!
+}
