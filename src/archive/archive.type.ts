@@ -1,20 +1,20 @@
-import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { EventDataType } from '../event-data/event-data.type';
 
 @ObjectType('Archive')
 export class ArchiveType {
-    @Field(type => Int)
-    id: any;
+    @Field(type => ID)
+    id: string;
 
     @Field(type => String)
-    eventId: String;
+    eventId: string;
 
     @Field(type => String)
-    eventType: String;
+    eventType: string;
 
     @Field(type => String)
-    eventDate: String;
+    eventDate: string;
 
-    @Field(type => EventDataType )
+    @Field(type => EventDataType)
     eventData: EventDataType
 }

@@ -3,13 +3,13 @@
 # ------------------------------------------------------
 
 type EventData {
-  id: Int!
+  id: ID!
   userId: String!
   userEmail: String!
 }
 
 type Archive {
-  id: Int!
+  id: ID!
   eventId: String!
   eventType: String!
   eventDate: String!
@@ -18,9 +18,10 @@ type Archive {
 
 type Query {
   getAllArchives: [Archive!]!
-  getArchive(id: String!): Archive!
+  getArchiveById(id: String!): Archive!
   getArchiveByEventId(eventId: String!): Archive!
   getArchivesByEventType(eventType: String!): [Archive!]!
+  getArchivesByEventCreationDate(eventCreationDate: String!): [Archive!]!
 }
 
 type Mutation {

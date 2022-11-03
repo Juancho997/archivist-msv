@@ -1,4 +1,5 @@
 import { Entity, PrimaryColumn, Column, ObjectIdColumn } from 'typeorm';
+import { EventData } from 'src/event-data/event-data.entity';
 
 @Entity()
 export class Archive {
@@ -19,5 +20,8 @@ export class Archive {
     eventType : string;
     
     @Column()
-    eventData: string;
+    eventData: EventData;
+
+    @Column()
+    eventData_Id: string;
 }

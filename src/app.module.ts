@@ -11,7 +11,7 @@ import { EventDataModule } from './event-data/event-data.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb+srv://juanbonino:jBJMz1fjyvMMtFxr@cluster0.zqrgyq5.mongodb.net/test',
+      url: process.env.MONGODB_URI,
       synchronize: true,
       useUnifiedTopology: true,
       entities: [Archive, EventData]

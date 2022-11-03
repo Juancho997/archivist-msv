@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { ArchiveService } from './archive.service';
 import { CreateArchiveInput } from './create-archive.input';
+import { ArchiveService } from './archive.service';
 import { ArchiveType } from './archive.type';
 
 @Resolver(of => ArchiveType)
@@ -15,7 +15,7 @@ export class ArchiveResolver {
     }
 
     @Query(returns => ArchiveType)
-    getArchive(
+    getArchiveById(
         @Args('id') id:string
     ) {
         return this.archiveService.getArchiveById(id);
@@ -33,6 +33,13 @@ export class ArchiveResolver {
         @Args('eventType') eventType : string
     ) {
         return this.archiveService.getArchivesByEventType(eventType)
+    }
+
+    @Query(returns => [ArchiveType])
+    getArchivesByEventCreationDate(
+        @Args('eventCreationDate') eventCreationDate : string 
+    ) {
+        return this.archiveService.getArchivesByEventCreationDate(eventCreationDate)
     }
 
 

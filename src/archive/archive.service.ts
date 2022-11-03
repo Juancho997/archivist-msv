@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Archive } from './archive.entity';
 import { v4 as uuid } from 'uuid';
+import { Archive } from './archive.entity';
 import { CreateArchiveInput } from './create-archive.input';
 import { EventDataResolver } from '../event-data/event-data.resolver';
 
@@ -11,7 +11,7 @@ export class ArchiveService {
 
     constructor(@InjectRepository(Archive)
     private archiveRepository: Repository<Archive>,
-        private eventDataResolver: EventDataResolver
+    private eventDataResolver: EventDataResolver
     ) { }
 
 
@@ -19,28 +19,14 @@ export class ArchiveService {
         return this.archiveRepository.find()
     }
 
-    async getArchiveById(_id: string): Promise<Archive> {
+    async getArchiveById(id: string): Promise<Archive> {
         return this.archiveRepository.findOne({
             where: {
-                _id
+                id
             }
         })
     }
-
-    async createArchive(createArchiveInput: CreateArchiveInput): Promise<Archive> {
-
-        const { eventId, eventType, eventData, eventDate } = createArchiveInput;
-
-        const newArchive = this.archiveRepository.create({ id: uuid(), eventId, eventType, eventDate });
-        const newEventData = await this.eventDataResolver.createEventData(eventData);
-
-        newArchive.eventData = newEventData._id;
-
-        console.log(`New archive ID : ${newArchive.id} created`)
-
-        return await this.archiveRepository.save(newArchive);
-    }
-
+    
     async getArchiveByEventId(eventId: string): Promise<Archive> {
         return this.archiveRepository.findOne({
             where: {
@@ -53,6 +39,31 @@ export class ArchiveService {
         return this.archiveRepository.find({
             where: {
                 eventType
+            }
+        })
+    }
+
+    async createArchive(createArchiveInput: CreateArchiveInput): Promise<Archive> {
+
+        const { eventId, eventType, eventData, eventDate } = createArchiveInput;
+
+        const newArchive = this.archiveRepository.create({ id: uuid(), eventId, eventType, eventDate });
+        const newEventData = await this.eventDataResolver.createEventData(eventData);
+
+        newArchive.eventData_Id = newEventData._id
+        newArchive.eventData = newEventData;
+
+        console.log(`New archive ID : ${newArchive.id} created`)
+
+        return await this.archiveRepository.save(newArchive);
+    }
+
+    async getArchivesByEventCreationDate(eventCreationDate : string): Promise<Archive[]>{
+        return this.archiveRepository.find({
+            where: {
+                eventDate : {
+                    $in: [eventCreationDate]
+                } as any
             }
         })
     }

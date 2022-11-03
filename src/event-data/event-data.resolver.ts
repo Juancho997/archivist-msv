@@ -10,27 +10,6 @@ export class EventDataResolver {
         private eventDataService: EventDataService
     ) { }
 
-    // @Query(returns => EventDataType)
-    // getEventDataById(
-    //     @Args('id') id:string
-    // ) {
-    //     return this.eventDataService.getEventDataById(id);
-    // }
-
-    // @Query(returns => [EventDataType])
-    // getEventDataByUserId(
-    //     @Args('userId') userId:number
-    // ) {
-    //     return this.eventDataService.getEventDataByUserId(userId);
-    // }
-
-    // @Query(returns => [EventDataType])
-    // getEventDataByUserEmail(
-    //     @Args('userEmail') userEmail:string
-    // ) {
-    //     return this.eventDataService.getEventDataByUserEmail(userEmail);
-    // }
-
     @Mutation(returns => EventDataType)
     createEventData(
         @Args('createEventDataInput') createEventDataInput : CreateEventDataInput

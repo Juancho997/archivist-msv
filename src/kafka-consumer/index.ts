@@ -1,9 +1,9 @@
 import { topics, consumer } from '../config';
-import { createArchive } from './graphql-requests';
+import { createArchive } from './graphql-mutation-request';
 
 consumer.on("ready", function (args) {
     try {
-        console.log(`KafkaConsumer ready`);
+        console.log('KafkaConsumer ready');
         consumer.subscribe(topics);
         consumer.consume();
         console.log(`Consuming topic : ${topics[0]}`);
@@ -14,7 +14,6 @@ consumer.on("ready", function (args) {
 
 consumer.on("data", async function (m) {
     try {
-
         console.log(`>>> New message from topic : ${topics} <<< `)
         const event = JSON.parse(m.value.toString());
         if (event === 'Cloud Karafka Producer initialized'){
@@ -22,10 +21,8 @@ consumer.on("data", async function (m) {
         } else {
             createArchive(event).catch((error) => console.error("error creating archive : ", error));
         }
-
-
     } catch (error) {
-        console.log(`There was an error receiving the message : ${error}`);
+        console.log(`There was an error when receiving the message : ${error}`);
     }
 });
 
