@@ -30,7 +30,8 @@ export async function createArchive(event: any) {
                     }
                 }) 
                 {
-                    eventId
+                    eventId,
+                    eventType
                 }
             }`;
 
