@@ -1,74 +1,30 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Archivist Microservice
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Microservicio JavaScript, creado con NestJS, que se encarga de consumir eventos y almacenarlos en una base de datos MongoDB.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Cada vez que se crea, modifica o elimina un usuario desde [Customer Microservice](https://github.com/Juancho997/customer-msv), se emite un evento ("CREATED", "UPDATED" o "DELETED") a un cluster de servidores de [Cloud Karafka](https://www.cloudkarafka.com), un servicio en la nube de Kafka. Archivist consume y almacena automátiamente en base de datos estos eventos, creando "archivos" de los mismos, los cuales pueden ser solicitados utilizando el playground de GraphQL para mostrar la información deseada.
 
-## Description
+## Esquema de los microservicios
+![Microservices Schema](https://user-images.githubusercontent.com/89111705/200440061-6c7fb5a4-8db4-479d-9f3e-e454ff649c5c.png)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Instrucciones
 
-## Installation
+1º Clonar este proyecto y [Customer Microservice](https://github.com/Juancho997/customer-msv), y seguir las instrucciones dadas en su [Readme](https://github.com/Juancho997/customer-msv/blob/main/README.md).
 
-```bash
-$ npm install
+2º Colocar los mismos datos de CloudKarafka en el archivo .env.example (no olvides borrar el ".example"!). De esta forma, nos aseguramos de que Archivist se comunique con Customer por el mismo cluster de servidores.
+
+3º Crear una base de datos en MongoDB y añadir el URI de conexión al archivo .env.
+
+4º Ejecutar los comandos
+
+```
+npm install
+npm run build
+npm run start:dev
 ```
 
-## Running the app
+5º Realizar peticiones desde Customer MSV para poblar la base de datos en MongoDB.
 
-```bash
-# development
-$ npm run start
+6º En el navegador, dirigirse a http://localhost:3000/graphql para acceder al playground de GraphQL y realizar las queries según la información que desees recuperar.
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-"# archivist-msv" 
+![Group 1 (1)](https://user-images.githubusercontent.com/89111705/200449994-331f11a6-171f-4e59-b275-58fbfa0a26b4.png)
