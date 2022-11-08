@@ -26,3 +26,5 @@ npm run start:dev
 5º Realizar peticiones desde Customer MSV para poblar la base de datos en MongoDB.
 
 6º En el navegador, dirigirse a http://localhost:3000/graphql para acceder al playground de GraphQL y realizar las queries según la información que desees recuperar.
+
+![Group 1 (1)](https://user-images.githubusercontent.com/89111705/200449994-331f11a6-171f-4e59-b275-58fbfa0a26b4.png)
