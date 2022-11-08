@@ -9,8 +9,6 @@ Cada vez que se crea, modifica o elimina un usuario desde [Customer Microservice
 
 ### Instrucciones
 
-http://localhost:3000/graphql
-
 1º Clonar este proyecto y [Customer Microservice](https://github.com/Juancho997/customer-msv), y seguir las instrucciones dadas en su [Readme](https://github.com/Juancho997/customer-msv/blob/main/README.md).
 
 2º Colocar los mismos datos de CloudKarafka en el archivo .env.example (no olvides borrar el ".example"!). De esta forma, nos aseguramos de que Archivist se comunique con Customer por el mismo cluster de servidores.
