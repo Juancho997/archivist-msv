@@ -1,5 +1,5 @@
 import { topics, consumer } from '../config';
-import { createArchive } from './graphql-mutation-request';
+import { createArchive } from '../common/graphql-requests/mutation-createArchive';
 
 consumer.on("ready", function (args) {
     try {
