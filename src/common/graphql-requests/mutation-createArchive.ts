@@ -1,6 +1,6 @@
 import { GraphQLClient, gql } from 'graphql-request';
 
-const endpoint = 'https://archivist-n442ur8a5-juancho997.vercel.app/graphql';
+const endpoint = process.env.API_URL;
 
 export async function createArchive(event: any) {
 
